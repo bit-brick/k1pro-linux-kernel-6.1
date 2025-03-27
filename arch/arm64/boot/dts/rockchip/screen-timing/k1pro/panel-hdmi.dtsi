@@ -1,0 +1,34 @@
+/ {
+	hdmi_sound: hdmi-sound {
+                compatible = "rockchip,hdmi";
+                rockchip,mclk-fs = <128>;
+                rockchip,card-name = "rockchip-hdmi";
+                rockchip,cpu = <&sai6>;
+                rockchip,codec = <&hdmi>;
+                rockchip,jack-det;
+                status = "okay";
+        };
+};
+
+&hdmi {
+        status = "okay";
+        enable-gpios = <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
+        rockchip,sda-falling-delay-ns = <360>;
+};
+
+&hdmi_in_vp0 {
+        status = "okay";
+};
+
+&hdptxphy_hdmi {
+        status = "okay";
+};
+
+&route_hdmi {
+        status = "okay";
+        connect = <&vp0_out_hdmi>;
+};
+
+&sai6 {
+        status = "okay";
+};
