@@ -143,8 +143,9 @@ static DOZE_T doze_status = DOZE_DISABLED;
 static s8 gtp_enter_doze(struct goodix_ts_data *ts);
 #endif
 
+#if GTP_DRIVER_SEND_CFG
 static u8 grp_cfg_version = 0;
-
+#endif
 /*******************************************************
 Function:
     Read data from the i2c slave device.
@@ -2779,14 +2780,14 @@ static int goodix_ts_probe(struct i2c_client *client, const struct i2c_device_id
         }
     }
 #endif
-
+/*
     ret = gtp_i2c_test(client);
     if (ret < 0)
     {
         printk("<%s>_%d    I2C communication ERROR!\n", __func__, __LINE__);
         goto probe_init_error;
     }
-
+*/
     ret = gtp_read_version(client, &version_info);
     if (ret < 0)
     {
@@ -2859,10 +2860,10 @@ static int goodix_ts_probe(struct i2c_client *client, const struct i2c_device_id
 #endif
     return 0;
 
-probe_init_error:
-    printk("   <%s>_%d  prob error !!!!!!!!!!!!!!!\n", __func__, __LINE__);    
-    GTP_GPIO_FREE(ts->rst_pin);
-    GTP_GPIO_FREE(ts->irq_pin);
+//probe_init_error:
+//    printk("   <%s>_%d  prob error !!!!!!!!!!!!!!!\n", __func__, __LINE__);    
+//    GTP_GPIO_FREE(ts->rst_pin);
+//    GTP_GPIO_FREE(ts->irq_pin);
 probe_init_error_requireio:
     tp_unregister_fb(&ts->tp); 
     kfree(ts);
@@ -3226,8 +3227,8 @@ static void goodix_ts_exit(void)
         destroy_workqueue(goodix_wq);
     }
 }
-//late_initcall(goodix_ts_init);
-module_init(goodix_ts_init);
+late_initcall(goodix_ts_init);
+//module_init(goodix_ts_init);
 
 module_exit(goodix_ts_exit);
 

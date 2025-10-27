@@ -16,7 +16,9 @@
 #include <dt-bindings/usb/pd.h>
 #include "rk3576.dtsi"
 #include "rk3576-linux.dtsi"
-#include "screen-timing/k1pro/panel-dsi-800x1280.dtsi"
+//#include "screen-timing/k1pro/panel-dsi-800x1280.dtsi"
+//#include "screen-timing/k1pro/panel-dsi-1024x600-HKBY.dtsi"
+#include "screen-timing/k1pro/panel-dsi-600x1024-R700301.dtsi"
 #include "screen-timing/k1pro/panel-hdmi.dtsi"
 
 / {
@@ -33,13 +35,7 @@
 		vol-up-key {
 			label = "volume up";
 			linux,code = <KEY_VOLUMEUP>;
-			press-threshold-microvolt = <1500000>;
-		};
-
-		vol-down-key {
-			label = "volume down";
-			linux,code = <KEY_VOLUMEDOWN>;
-			press-threshold-microvolt = <1050000>;
+			press-threshold-microvolt = <150>;
 		};
 	};
 
@@ -94,6 +90,15 @@
                 gpios-states = <0x1>;
                 states = <100000 0x1
                           3300000 0x0>;
+        };
+
+	vcc2v8_lcd_n: vcc2v8-lcd0-n {
+                compatible = "regulator-fixed";
+                regulator-name = "vcc1v8_lcd0_n";
+                regulator-boot-on;
+                enable-active-high;
+                regulator-always-on;
+                gpio = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
         };
 
 	vcc5v0_host: vcc5v0-host {
@@ -858,7 +863,7 @@
 	touch {
 		touch_gpio: touch-gpio {
 			rockchip,pins =
-				<0 RK_PD0 RK_FUNC_GPIO &pcfg_pull_up>,
+				<0 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>,
 				<0 RK_PC5 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
@@ -927,12 +932,12 @@
         //vpcie3v3-supply = <&vcc3v3_pcie1>;
         status = "okay";
 };
-/*
+
 &pcie1 {
         reset-gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
         status = "okay";
 };
-*/
+
 &rga2_core0 {
 	status = "okay";
 };

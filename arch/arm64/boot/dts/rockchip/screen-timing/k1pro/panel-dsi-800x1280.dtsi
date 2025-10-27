@@ -3,7 +3,7 @@
 / {
 	backlight: backlight {
 		compatible = "pwm-backlight";
-		pwms = <&pwm1_6ch_0 0 25000 0>;
+		pwms = <&pwm1_6ch_1 0 25000 0>;
 		brightness-levels = <
 			  0  20  20  21  21  22  22  23
 			 23  24  24  25  25  26  26  27
@@ -43,14 +43,14 @@
 	};
 };
 
-&pwm1_6ch_0 {
+&pwm1_6ch_1 {
        status = "okay";
 };
 
 &dsi {
 	status = "okay";
-	auto-calculation-mode;
-	//rockchip,lane-rate = <1000>;
+	//auto-calculation-mode;
+	rockchip,lane-rate = <800>;
 	dsi_panel: panel@0 {
 		status = "okay";
 		compatible = "simple-panel-dsi";

@@ -840,13 +840,13 @@ static int dcs_bl_update_status(struct backlight_device *bl)
 static int dcs_bl_get_brightness(struct backlight_device *bl)
 {
 	struct panel_simple *p = bl_get_data(bl);
-	struct mipi_dsi_device *dsi = p->dsi;
+	//struct mipi_dsi_device *dsi = p->dsi;
 	u16 brightness = bl->props.brightness;
-	int ret;
+	//int ret;
 
 	if (!p->prepared)
 		return 0;
-
+#if 0
 	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
 
 	ret = mipi_dsi_dcs_get_display_brightness(dsi, &brightness);
@@ -854,7 +854,7 @@ static int dcs_bl_get_brightness(struct backlight_device *bl)
 		return ret;
 
 	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-
+#endif
 	return brightness & 0xff;
 }
 

@@ -1,0 +1,187 @@
+#include <dt-bindings/display/drm_mipi_dsi.h>
+
+/ {
+	backlight: backlight {
+		compatible = "pwm-backlight";
+		status = "disabled";
+		pwms = <&pwm1_6ch_1 0 25000 0>;
+		brightness-levels = <
+			  0  20  20  21  21  22  22  23
+			 23  24  24  25  25  26  26  27
+			 27  28  28  29  29  30  30  31
+			 31  32  32  33  33  34  34  35
+			 35  36  36  37  37  38  38  39
+			 40  41  42  43  44  45  46  47
+			 48  49  50  51  52  53  54  55
+			 56  57  58  59  60  61  62  63
+			 64  65  66  67  68  69  70  71
+			 72  73  74  75  76  77  78  79
+			 80  81  82  83  84  85  86  87
+			 88  89  90  91  92  93  94  95
+			 96  97  98  99 100 101 102 103
+			104 105 106 107 108 109 110 111
+			112 113 114 115 116 117 118 119
+			120 121 122 123 124 125 126 127
+			128 129 130 131 132 133 134 135
+			136 137 138 139 140 141 142 143
+			144 145 146 147 148 149 150 151
+			152 153 154 155 156 157 158 159
+			160 161 162 163 164 165 166 167
+			168 169 170 171 172 173 174 175
+			176 177 178 179 180 181 182 183
+			184 185 186 187 188 189 190 191
+			192 193 194 195 196 197 198 199
+			200 201 202 203 204 205 206 207
+			208 209 210 211 212 213 214 215
+			216 217 218 219 220 221 222 223
+			224 225 226 227 228 229 230 231
+			232 233 234 235 236 237 238 239
+			240 241 242 243 244 245 246 247
+			248 249 250 251 252 253 254 255
+		>;
+		default-brightness-level = <200>;
+		//enable-gpios = <&gpio2 RK_PC3 GPIO_ACTIVE_HIGH>;
+	};
+};
+
+&pwm1_6ch_1 {
+       status = "disabled";
+};
+
+&dsi {
+	status = "okay";
+	//auto-calculation-mode;
+	rockchip,lane-rate = <300>;
+	dsi_panel: panel@0 {
+		status = "okay";
+		compatible = "simple-panel-dsi";
+		reg = <0>;
+		//backlight = <&backlight>;
+		enable-gpios = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio0 RK_PC7 GPIO_ACTIVE_LOW>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&lcd_enable_gpio>, <&lcd_rst_gpio>;
+
+		prepare-delay-ms = <40>;
+		reset-delay-ms = <60>;
+		init-delay-ms = <80>;
+		stbyb-delay-ms = <20>;
+		enable-delay-ms = <60>;
+		disable-delay-ms = <20>;
+		unprepare-delay-ms = <20>;
+		width-mm = <135>;
+		height-mm = <216>;
+		dsi,flags = <(MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+			      MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS)>;
+		dsi,format = <MIPI_DSI_FMT_RGB888>;
+		dsi,lanes  = <4>;
+		panel-init-sequence = [
+39 00 04 DF 90 66 F6
+15 00 02 DE 00
+39 00 0A B2 01 23 60 60 88 DB 5A 07 00
+39 00 08 BB 02 22 43 4B 55 54 54
+39 00 03 BD 00 56
+39 00 05 BF 46 5A 30 C3
+39 00 05 C0 00 85 00 85
+39 00 2B CB 7C 68 65 55 4D 46 2F 34 1D 36 35 33 4E 39 3F 31 2D 21 11 09 06 7C 68 65 55 4D 46 2F 34 1D 36 35 33 4E 39 3F 31 2D 21 11 09 06
+39 00 09 C3 03 01 06 01 06 FF 07 FF
+39 00 03 C4 00 00
+39 00 0A C6 01 90 00 82 00 1F 16 82 00
+39 00 04 C8 22 00 96
+39 00 05 CD 00 00 00 00
+39 00 2D CE 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+39 00 13 CF 40 00 00 00 1F FF 00 00 00 00 00 00 00 1F FF 00 00 00
+39 00 18 D0 00 A0 A2 9F 9F 97 D7 84 86 88 8A 8C 8E 80 24 24 24 24 24 24 24 24 24
+39 00 18 D1 00 A1 A3 9F 9F 97 D7 85 87 89 8B 8D 8F 81 24 24 24 24 24 24 24 24 24
+39 00 41 D4 00 20 1A 01 00 03 20 04 00 00 00 04 04 81 04 1F 01 00 03 05 20 64 04 04 50 E4 1F 04 05 00 18 00 0A 04 28 00 0F 00 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00 00 40 00 00 01 00 00 20 00 00
+39 00 2A D5 00 00 00 00 00 00 00 00 00 A0 00 00 00 07 32 5A 00 08 42 00 00 04 A3 B3 00 1D 00 0C 71 20 04 10 00 00 00 00 00 00 0F 0F 00
+39 00 10 D7 00 AA AA AA AA AA AA 00 FF 00 FF 00 FF 0A AA
+15 00 02 DE 02
+39 00 08 BB 00 00 00 00 00 68 69
+39 00 04 E6 10 10 78
+39 00 05 C6 42 01 40 11
+39 00 2D EC 00 3C 7F 77 00 00 00 00 00 00 F1 FF FF 00 00 00 00 00 FF 00 FF 00 7F F1 FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 FF 00 FF 00 FF
+15 00 02 DE 00
+05 1e 01 35
+05 78 01 11        
+05 64 01 29 
+		];
+
+		panel-exit-sequence = [
+			05 10 01 28
+			05 78 01 10
+		];
+
+		disp_timings0: display-timings {
+			native-mode = <&dsi_timing0>;
+			dsi_timing0: timing0 {
+				clock-frequency = <50000000>;                                               
+				hactive = <600>;                                                            
+				vactive = <1024>;                                                            
+				hback-porch = <50>;                                                          
+				hfront-porch = <50>;                                                         
+				vback-porch = <30>;                                                          
+				vfront-porch = <130>;                                                         
+				hsync-len = <10>;                                                            
+				vsync-len = <2>;                                                             
+				hsync-active = <0>;                                                          
+				vsync-active = <0>;                                                          
+				de-active = <0>;                                                             
+				pixelclk-active = <0>;
+			};
+		};
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+				panel_in_dsi: endpoint {
+					remote-endpoint = <&dsi_out_panel>;
+				};
+			};
+		};
+	};
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@1 {
+			reg = <1>;
+			dsi_out_panel: endpoint {
+				remote-endpoint = <&panel_in_dsi>;
+			};
+		};
+	};
+};
+
+&dsi_in_vp1 {
+	status = "okay";
+};
+
+&route_dsi {
+	status = "okay";
+};
+
+&i2c0 {
+        status = "okay";
+        pinctrl-names = "default";
+        pinctrl-0 = <&i2c0m1_xfer>;
+
+	jadard_ts@68{
+	   	status = "okay";
+	   	compatible = "jadard,jdcommon";
+	   	reg = <0x68>;
+	   	//interrupt-parent = <&ap_gpio>;
+	   	//interrupts = <144 0x2800>;
+	   	jadard,panel-sense-nums = <18 32>;
+	   	jadard,panel-coords = <0 600 0 1024>;
+	   	jadard,panel-max-points = <5>;
+	   	jadard,int-is-edge = <1>;
+	   	jadard,irq-gpio = <&gpio0 RK_PC5 GPIO_ACTIVE_HIGH>;
+	   	jadard,rst-gpio = <&gpio0 RK_PB4 GPIO_ACTIVE_HIGH>;
+	};
+};

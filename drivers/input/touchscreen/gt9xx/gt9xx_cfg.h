@@ -17,7 +17,7 @@
 
 #ifndef _GOODIX_GT9XX_CFG_H_
 #define _GOODIX_GT9XX_CFG_H_
-
+#if 0
 /* CFG for GT911 */
 static u8 gtp_dat_gt11[] = {
 	/* <1200, 1920>*/
@@ -61,5 +61,5 @@ static u8 gtp_dat_7[] = {
 	/* <1024, 600> 7.0 */
 	#include "WGJ10187_GT910_Config_20140623_104014_0X41.cfg"
 };
-
+#endif
 #endif /* _GOODIX_GT9XX_CFG_H_ */

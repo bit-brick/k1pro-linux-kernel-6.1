@@ -263,6 +263,7 @@ static bool dw8250_detect_rs485_hw(struct uart_port *p)
 #ifdef CONFIG_ARCH_ROCKCHIP
 	dw8250_writel_ext(p, DW_UART_TCR, 0);
 #endif
+	reg = 0;
 	return reg;
 }
 
