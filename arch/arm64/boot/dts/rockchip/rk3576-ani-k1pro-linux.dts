@@ -17,8 +17,8 @@
 #include "rk3576.dtsi"
 #include "rk3576-linux.dtsi"
 //#include "screen-timing/k1pro/panel-dsi-800x1280.dtsi"
-//#include "screen-timing/k1pro/panel-dsi-1024x600-HKBY.dtsi"
-#include "screen-timing/k1pro/panel-dsi-600x1024-R700301.dtsi"
+#include "screen-timing/k1pro/panel-dsi-1024x600-HKBY.dtsi"
+//#include "screen-timing/k1pro/panel-dsi-600x1024-R700301.dtsi"
 #include "screen-timing/k1pro/panel-hdmi.dtsi"
 
 / {
@@ -92,6 +92,7 @@
                           3300000 0x0>;
         };
 
+
 	vcc2v8_lcd_n: vcc2v8-lcd0-n {
                 compatible = "regulator-fixed";
                 regulator-name = "vcc1v8_lcd0_n";
@@ -100,6 +101,7 @@
                 regulator-always-on;
                 gpio = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
         };
+
 
 	vcc5v0_host: vcc5v0-host {
                 compatible = "regulator-fixed";

@@ -57,7 +57,7 @@
 		compatible = "simple-panel-dsi";
 		reg = <0>;
 		//backlight = <&backlight>;
-		enable-gpios = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
+		//enable-gpios = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
 		reset-gpios = <&gpio0 RK_PC7 GPIO_ACTIVE_LOW>;
 
 		pinctrl-names = "default";
@@ -196,6 +196,7 @@
 };
 
 
+
 &i2c0 {
         status = "okay";
         pinctrl-names = "default";
@@ -207,9 +208,10 @@
                 pinctrl-names = "default";
                 pinctrl-0 = <&touch_gpio>;
                 touch-gpio = <&gpio0 RK_PC5 IRQ_TYPE_LEVEL_HIGH>;
-                reset-gpio = <&gpio0 RK_PB4 GPIO_ACTIVE_HIGH>;
+                reset-gpio = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
                 max-x = <1200>;
                 max-y = <1920>;
                 tp-size = <9110>;
+				tp-supply = <&vcc2v8_lcd_n>;
         };
 };
